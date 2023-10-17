@@ -1,0 +1,6 @@
+pnpm-lock.yaml
+.husky/
+.prettierignore
+*.ejs.t
+*.md
+.npmrc
