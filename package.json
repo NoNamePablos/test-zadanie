@@ -17,7 +17,7 @@
     "add:view": "pnpx hygen new component --folder views --name",
     "add:layout": "pnpx hygen new component --folder layouts --name",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@faker-js/faker": "^8.0.2",

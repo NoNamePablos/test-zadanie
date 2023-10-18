@@ -1,33 +1,77 @@
 <script lang="ts" setup>
 import {useI18n} from 'vue-i18n';
 import VInput from "@/components/VInput/VInput.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {MagnifyingGlassIcon} from "@heroicons/vue/20/solid";
-
+import VSortList from "@/components/VSortList/VSortList.vue";
+import {VSortButton} from "@/components/VSortButton";
+import {useProducts} from "@/api/products";
 const {t} = useI18n({
   locale: 'en',
   messages: {},
 });
 const searchValue = ref<string>("");
 
+
+ interface ISortButton {
+  sortName: string,
+  title: string,
+}
+ enum ESortDir{
+  ASC=1,
+  DESC,
+  NONE,
+}
+
+const sortButtonList = ref<Array<ISortButton>>([
+  {
+    sortName: 'name',
+    title: 'По названию',
+  },
+  {
+    sortName: 'views',
+    title: 'По просмотрам',
+  },
+  {
+    sortName: 'onDateStart',
+    title: 'По дате начала',
+  },
+  {
+    sortName: 'onDateEnd',
+    title: 'По дате окончания',
+  }
+])
+const currentSort = ref<string>(sortButtonList.value[0].sortName);
+const currentSortDir=ref<ESortDir>(ESortDir.ASC)
+const sorting = (sort: string): void => {
+  console.log("sort :",sort);
+  console.log("currDir: ",currentSortDir.value);
+}
+const { request,productInfo}=useProducts();
+
+onMounted(()=>{
+  request();
+  console.log(productInfo);
+
+})
 </script>
 
 <template>
   <div class="home">
     <div class="home-title">Карточки контента</div>
     <div class="row">
-      <div class="sort">
-        <div class="sort-title">Сортировать:</div>
-        <div class="sort-list">
-          <div class="sort-button">По названию</div>
-          <div class="sort-button">По просмотрам</div>
-          <div class="sort-button">По дате начала</div>
-          <div class="sort-button">По дате окончания</div>
-        </div>
-      </div>
+      <v-sort-list>
+        <v-sort-button v-for="(button,idx) in sortButtonList" :key="idx"
+                       :sort-state="currentSort===button.sortName?currentSortDir:ESortDir.NONE"
+                       :label="button.title"
+                       @click="sorting(button.sortName)" />
+      </v-sort-list>
       <VInput v-model="searchValue" :left-icon="true">
-        <MagnifyingGlassIcon />
+        <MagnifyingGlassIcon/>
       </VInput>
+    </div>
+    <div class="content">
+      {{productInfo.list}}
     </div>
   </div>
 </template>

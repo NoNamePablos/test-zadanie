@@ -1,29 +1,19 @@
-<script lang="ts">
-export interface VDefaultLayoutProps {
-  title?: string;
-}
-</script>
-
 <script lang="ts" setup>
-import {useTitle} from '@vueuse/core';
-
-const props = withDefaults(defineProps<VDefaultLayoutProps>(), {
-  title: 'App',
-});
-
-useTitle(props.title);
+import VContainerRow from "@/components/VContainerRow/VContainerRow.vue";
 </script>
 
 <template>
-  <div class="container">
+  <div class="wrapper">
     <div class="header">
-      <router-link to="/" class="header__logo">
-        <img src="/logo.svg" alt="logo" />
-      </router-link>
+      <v-container-row>
+        <router-link to="/" class="header__logo">
+          <img src="/logo.svg" alt="logo"/>
+        </router-link>
+      </v-container-row>
     </div>
-    <div class="page">
+    <VContainerRow class="mt-64" :centered="true">
       <slot/>
-    </div>
+    </VContainerRow>
   </div>
 </template>
 
@@ -36,7 +26,8 @@ useTitle(props.title);
     }
   }
 }
-.page{
-  @apply mt-64;
+
+.wrapper {
+  @apply w-full;
 }
 </style>
