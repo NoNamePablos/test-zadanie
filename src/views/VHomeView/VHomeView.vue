@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {useI18n} from 'vue-i18n';
 import VInput from "@/components/VInput/VInput.vue";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, Ref, ref, watch} from "vue";
 import {MagnifyingGlassIcon} from "@heroicons/vue/20/solid";
 import VSortList from "@/components/VSortList/VSortList.vue";
 import {VSortButton} from "@/components/VSortButton";
@@ -47,12 +47,18 @@ const sorting = (sort: string): void => {
   console.log("sort :",sort);
   console.log("currDir: ",currentSortDir.value);
 }
-const { request,productInfo}=useProducts();
-
+const {  data }=useProducts();
+const personlData=ref([]);
+watch(data,(dts)=>{
+  console.log(dts);
+  personlData.value=dts;
+  console.log(personlData.value)
+})
+const lust=computed(()=>{
+  return personlData.value.sort((a,b)=>b.discount-a.discount);
+})
 onMounted(()=>{
-  request();
-  console.log(productInfo);
-
+  console.log(data.value);
 })
 </script>
 
@@ -71,7 +77,7 @@ onMounted(()=>{
       </VInput>
     </div>
     <div class="content">
-      {{productInfo.list}}
+      {{lust}}
     </div>
   </div>
 </template>

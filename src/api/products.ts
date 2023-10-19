@@ -1,5 +1,6 @@
 import {useFetch} from "@vueuse/core";
-import {ref, toRefs, reactive, unref} from "vue";
+import {ref, toRefs, reactive, unref,} from "vue";
+import type {Ref} from 'vue'
 
 export default interface IProducts {
     name?: string;
@@ -16,18 +17,32 @@ export default interface IProducts {
     new_price?: string;
 }
 
+export interface IProductFetch {
+    isFetching: Ref<Boolean>;
+    error: Ref<unknown>;
+    data: IProducts[];
 
-export const useProducts=()=>{
-    const productInfo:{list:Array<IProducts>;error:unknown,isFetching:boolean}=reactive({list:[],error:null,isFetching:false});
-    const request=async ()=>{
-        const { isFetching, error, data } = await useFetch('./src/mock/mockProducts.json').json();
-        productInfo.list=data.value;
-        productInfo.isFetching=isFetching.value;
-        productInfo.error=error.value;
-    }
+}
+
+export const useProducts = (): { data: Ref<IProducts[]>; isFetching: Ref<boolean>; error: Ref<any> } => {
+    /*let data1:Ref<IProducts[]>=ref([]);
+    let data:Ref<IProducts[]>=ref([]);*/
+    const {isFetching, error, data} = useFetch<IProducts[]>('./src/mock/mockProducts.json').json();
+    console.log(typeof data);
+    /*useFetch('./src/mock/mockProducts.json').json().then(rs=>{
+        return rs.data;
+    }).then((rs)=>{
+     data.value=rs.value;
+    });*/
+    /*  fetch('./src/mock/mockProducts.json').then((res)=>{
+          return res.json()
+      }).then((res)=>{
+          data.value=res;
+      });*/
+
 
     return {
-        request,productInfo
+        isFetching, error, data
     }
 }
 
