@@ -33,7 +33,7 @@ const config: Config = {
       phone: '480px',
       tablet: '768px',
       desktop: '1024px',
-      xl:'1280px',
+      xl: '1280px',
     },
     colors: {
       transparent: 'transparent',

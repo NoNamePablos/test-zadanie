@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 @layer base {
-    html {
-        scroll-behavior: smooth;
-        @apply h-full;
-    }
-    #app,body{
-        @apply h-full
-    }
-
+  html {
+    scroll-behavior: smooth;
+    @apply h-full;
+  }
+  #app,
+  body {
+    @apply h-full;
+  }
 }
