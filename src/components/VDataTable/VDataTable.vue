@@ -10,14 +10,14 @@
 
 <template>
   <div class="table-base">
-    <table class="table-auto">
+    <table class="table-auto" v-if="items.length > 0">
       <thead>
         <tr>
           <slot></slot>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in items" :key="index">
+        <tr v-for="(item, index) in items" :key="index" v-if="items.length > 0">
           <td v-for="column in slots.default()" :key="column.props.field">
             <div v-if="!column.props.image">
               {{ item[column.props.field] }}
@@ -29,6 +29,6 @@
         </tr>
       </tbody>
     </table>
-    <div class="table-base__pagination"></div>
+    <div v-else>По вашему запросу ничего нет</div>
   </div>
 </template>

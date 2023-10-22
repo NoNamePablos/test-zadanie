@@ -64,7 +64,7 @@
 
   const personalData: Ref<IProducts[]> = ref([]);
   const sortedProducts = computed(() => {
-    return personalData.value
+    return [...personalData.value]
       .sort((a, b) => {
         let modifier = 1;
         if (currentSortDir.value === ESortDir.DESC) modifier = -1;
@@ -96,13 +96,12 @@
     console.log('nre: ', newValue);
     console.log('sl: ', searchedList.value);
     console.log(isEmptySearchField.value);
-    //if lengtth=0 show error block
-    if (isEmptySearchField.value || searchedList.value.length === 0) {
-      console.log(personalData.value);
-      paginationData.value = personalData.value;
-      console.log(paginationData.value);
+    if (isEmptySearchField.value) {
+      personalData.value = data.value;
+      paginationData.value = data.value;
     } else {
-      paginationData.value = searchValue.value;
+      personalData.value = searchedList.value;
+      paginationData.value = personalData.value;
     }
   });
 </script>
@@ -135,6 +134,7 @@
         <v-data-column field="end_date" header="Конец ротации" />
       </v-data-table>
       <v-pagination
+        v-if="sortedProducts.length > 0"
         :page-count="pageCount"
         :prev-page="prevPage"
         :next-page="nextPage"
