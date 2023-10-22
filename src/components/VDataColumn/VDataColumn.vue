@@ -18,6 +18,6 @@
 </template>
 <style lang="scss" scoped>
   .table-header-cell {
-    @apply text-left border border font-bold text-gray  transition-shadow duration-[0.2s] p-4 border-solid border-[0_0_1px_0] bg-[#f9fafb];
+    @apply text-left border border font-bold text-gray-500  transition-shadow duration-[0.2s] p-4 border-solid border-[0_0_1px_0] bg-[#f9fafb];
   }
 </style>

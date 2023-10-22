@@ -13,27 +13,25 @@
   import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
   import VSortList from '@/components/VSortList/VSortList.vue';
   import { VSortButton } from '@/components/VSortButton';
-  import { useProducts } from '@/api/products';
   import type IProducts from '@/types/products';
   import VDataTable from '@/components/VDataTable/VDataTable.vue';
   import VDataColumn from '@/components/VDataColumn/VDataColumn.vue';
+  import { ESortDir } from '@/types/sorttypes';
+  import VPagination from '@/components/VPagination/VPagination.vue';
+  import { usePagination } from '@/composabe/usePagination';
+  import { useProducts } from '@/api/products';
+  import { useSearch } from '@/composabe/useSearch';
 
   const { isFetching, error, data } = useProducts();
+  const { ddata, searchedList, searchValue, isEmptySearchField } = useSearch();
+
   const { t } = useI18n({
     locale: 'en',
     messages: {},
   });
-  const searchValue = ref<string>('');
-
   interface ISortButton {
     sortName: string;
     title: string;
-  }
-
-  enum ESortDir {
-    ASC = 1,
-    DESC,
-    NONE,
   }
 
   const sortButtonList: Ref<ISortButton[]> = ref([
@@ -54,41 +52,20 @@
       title: 'По дате окончания',
     },
   ]);
-  const currentSort = ref<string>(sortButtonList.value[0].sortName);
+  const currentSort = ref(sortButtonList.value[0].sortName);
   const currentSortDir = ref<ESortDir>(ESortDir.ASC);
   const sorting = (sort: string): void => {
-    console.log('sort :', sort);
-    console.log('currDir: ', currentSortDir.value);
-    //if s == current sort, reverse
     if (sort === currentSort.value) {
       currentSortDir.value =
         currentSortDir.value === ESortDir.ASC ? ESortDir.DESC : ESortDir.ASC;
     }
     currentSort.value = sort;
   };
-  const personalData: Ref<IProducts[]> = ref([]);
-  const pageCountPerPage: Ref<number> = ref(2);
-  const currentPage: Ref<number> = ref(1);
-  const pageCount = computed(() => {
-    return Math.ceil(personalData.value.length / pageCountPerPage.value);
-  });
-  const nextPage = () => {
-    if (currentPage.value * pageCountPerPage.value < personalData.value.length)
-      currentPage.value++;
-  };
-  const prevPage = () => {
-    if (currentPage.value > 1) currentPage.value--;
-  };
-  const changePage = (page_num: number): void => {
-    currentPage.value = page_num;
-  };
 
-  watch(data, (dts) => {
-    personalData.value = dts;
-  });
+  const personalData: Ref<IProducts[]> = ref([]);
   const sortedProducts = computed(() => {
     return personalData.value
-      .sort((a: IProducts, b: IProducts) => {
+      .sort((a, b) => {
         let modifier = 1;
         if (currentSortDir.value === ESortDir.DESC) modifier = -1;
         if (a[currentSort.value] < b[currentSort.value]) return -1 * modifier;
@@ -100,6 +77,33 @@
         let end = currentPage.value * pageCountPerPage.value;
         if (index >= start && index < end) return true;
       });
+  });
+  const {
+    paginationData,
+    nextPage,
+    prevPage,
+    changePage,
+    pageCount,
+    pageCountPerPage,
+    currentPage,
+  } = usePagination();
+  watch(data, (dts) => {
+    personalData.value = dts;
+    ddata.value = personalData.value;
+    paginationData.value = personalData.value;
+  });
+  watch(searchValue, (newValue) => {
+    console.log('nre: ', newValue);
+    console.log('sl: ', searchedList.value);
+    console.log(isEmptySearchField.value);
+    //if lengtth=0 show error block
+    if (isEmptySearchField.value || searchedList.value.length === 0) {
+      console.log(personalData.value);
+      paginationData.value = personalData.value;
+      console.log(paginationData.value);
+    } else {
+      paginationData.value = searchValue.value;
+    }
   });
 </script>
 
@@ -130,18 +134,13 @@
         <v-data-column field="start_date" header="Начало ротации" />
         <v-data-column field="end_date" header="Конец ротации" />
       </v-data-table>
+      <v-pagination
+        :page-count="pageCount"
+        :prev-page="prevPage"
+        :next-page="nextPage"
+        :change-page="changePage" />
     </div>
-    <div class="paginate flex gap-8 mt-24">
-      <button @click="prevPage">Prev</button>
-      <div
-        v-for="i in pageCount"
-        :key="i"
-        class="flex gap-8"
-        @click="changePage(i)">
-        {{ i }}
-      </div>
-      <button @click="nextPage">Next</button>
-    </div>
+
     debug: sort={{ currentSort }}, dir={{ currentSortDir }}
   </div>
 </template>

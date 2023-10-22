@@ -35,10 +35,6 @@ const config: Config = {
       desktop: '1024px',
       xl: '1280px',
     },
-    colors: {
-      transparent: 'transparent',
-      ...COLORS,
-    },
     extend: {},
   },
   plugins: [],

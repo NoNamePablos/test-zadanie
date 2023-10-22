@@ -47,7 +47,7 @@
     <input
       :type="type"
       v-bind="$attrs"
-      class="leading-1.5 block h-module mr-4 outline-none border-none p-module text-black placeholder:text-gray"
+      class="leading-1.5 block h-module mr-4 outline-none border-none p-module text-black placeholder:text-gray-700"
       :class="{
         'border-red': error,
       }"
@@ -61,9 +61,9 @@
 </template>
 <style lang="scss" scoped>
   .input {
-    @apply flex gap-4 h-32 rounded w-max border border-gray  px-8;
+    @apply flex gap-4 h-32 rounded w-max border border-gray-700  px-8;
   }
   .input-icon {
-    @apply text-gray w-16 items-center flex;
+    @apply text-gray-700 w-16 items-center flex;
   }
 </style>
