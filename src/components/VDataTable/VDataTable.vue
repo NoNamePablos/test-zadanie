@@ -20,7 +20,7 @@
     personalData.value = newVal;
   });
 
-  const { nextPage, prevPage, changePage, pageCount, filteredList } =
+  const { nextPage, prevPage, changePage, pageCount, filteredList,currentPage } =
     usePagination(personalData);
 
   watch(filteredList, (newVal) => {
@@ -54,8 +54,10 @@
     </table>
     <div v-else>По вашему запросу ничего нет</div>
     <v-pagination
+      v-if="pageCount>1"
       :page-count="pageCount"
       :change-page="changePage"
+      :current-page="currentPage"
       :next-page="nextPage"
       :prev-page="prevPage" />
   </div>
