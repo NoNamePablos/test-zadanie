@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { VLoadingView } from '@/views/VLoadingView';
 import { VHomeView } from '@/views/VHomeView';
+import { VDetailView } from '@/views/VDetailView';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,6 +10,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: VHomeView,
+    },
+    {
+      path: '/detail',
+      name: 'detail',
+      component: VDetailView,
     },
   ],
 });
