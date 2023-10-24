@@ -6,7 +6,7 @@
     prevPage: Function;
     nextPage: Function;
     pageCount: number;
-    currentPage?:number;
+    currentPage?: number;
   }
   defineProps<Props>();
 </script>
@@ -20,7 +20,7 @@
       v-for="i in pageCount"
       :key="i"
       class="flex gap-8"
-      :class="{'is-active':i==currentPage}"
+      :class="{ 'is-active': i == currentPage }"
       @click="changePage(i)"
       >{{ i }}
     </v-button>
@@ -30,7 +30,7 @@
   </div>
 </template>
 <style lang="scss" scoped>
-  .is-active{
+  .is-active {
     @apply bg-blue-700 border border-white border-solid text-white;
   }
 </style>

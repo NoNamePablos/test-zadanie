@@ -12,7 +12,7 @@ const router = createRouter({
       component: VHomeView,
     },
     {
-      path: '/detail',
+      path: '/:id',
       name: 'detail',
       component: VDetailView,
     },

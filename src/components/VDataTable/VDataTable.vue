@@ -4,7 +4,8 @@
   import type IProducts from '@/types/products';
   import VPagination from '@/components/VPagination/VPagination.vue';
   import { usePagination } from '@/composabe/usePagination';
-
+  import {useRouter} from "vue-router";
+  const router=useRouter();
   const slots = useSlots();
 
   interface Props {
@@ -20,12 +21,23 @@
     personalData.value = newVal;
   });
 
-  const { nextPage, prevPage, changePage, pageCount, filteredList,currentPage } =
-    usePagination(personalData);
+  const {
+    nextPage,
+    prevPage,
+    changePage,
+    pageCount,
+    filteredList,
+    currentPage,
+  } = usePagination(personalData);
 
   watch(filteredList, (newVal) => {
     filteredItemsList.value = newVal;
   });
+
+  const changeRoute=(index:number)=>{
+    router.push({ name: 'detail', params: { id: `${index}` } })
+  }
+
 </script>
 
 <template>
@@ -40,6 +52,7 @@
         <tr
           v-for="(item, index) in filteredItemsList"
           :key="index"
+          @click="changeRoute(index)"
           v-if="filteredItemsList.length > 0">
           <td v-for="column in slots.default()" :key="column.props.field">
             <div v-if="!column.props.image">
@@ -54,7 +67,7 @@
     </table>
     <div v-else>По вашему запросу ничего нет</div>
     <v-pagination
-      v-if="pageCount>1"
+      v-if="pageCount > 1"
       :page-count="pageCount"
       :change-page="changePage"
       :current-page="currentPage"
