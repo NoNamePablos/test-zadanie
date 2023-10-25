@@ -4,8 +4,8 @@
   import type IProducts from '@/types/products';
   import VPagination from '@/components/VPagination/VPagination.vue';
   import { usePagination } from '@/composabe/usePagination';
-  import {useRouter} from "vue-router";
-  const router=useRouter();
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
   const slots = useSlots();
 
   interface Props {
@@ -34,10 +34,9 @@
     filteredItemsList.value = newVal;
   });
 
-  const changeRoute=(index:number)=>{
-    router.push({ name: 'detail', params: { id: `${index}` } })
-  }
-
+  const changeRoute = (index: number) => {
+    router.push({ name: 'detail', params: { id: `${index}` } });
+  };
 </script>
 
 <template>
@@ -51,8 +50,8 @@
       <tbody>
         <tr
           v-for="(item, index) in filteredItemsList"
-          :key="index"
-          @click="changeRoute(index)"
+          :key="item?.id"
+          @click="changeRoute(item?.id)"
           v-if="filteredItemsList.length > 0">
           <td v-for="column in slots.default()" :key="column.props.field">
             <div v-if="!column.props.image">

@@ -24,6 +24,7 @@
     "@heroicons/vue": "^2.0.18",
     "@vueuse/core": "^10.3.0",
     "axios": "^1.4.0",
+    "class-variance-authority": "^0.7.0",
     "dayjs": "^1.11.9",
     "lodash": "^4.17.21",
     "pinia": "^2.1.4",

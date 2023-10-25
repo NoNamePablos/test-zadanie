@@ -1,6 +1,7 @@
 import type { Ref } from 'vue';
 
 export default interface IProducts {
+  id?: number;
   name?: string;
   image_url?: string;
   logo_url?: string;
@@ -10,9 +11,9 @@ export default interface IProducts {
   end_date?: string;
   discount?: string;
   stars?: number;
-  old_price?: string;
+  old_price?: string | string[];
   disclaimer?: string;
-  new_price?: string;
+  new_price?: string | string[];
 }
 
 export interface IProductsResult {
