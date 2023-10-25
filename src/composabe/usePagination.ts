@@ -4,7 +4,7 @@ import type { IProducts } from '@/types/products';
 
 export function usePagination(data: Ref<IProducts[]>) {
   const paginationData: Ref<IProducts[]> = ref([...data.value]);
-  const pageCountPerPage: Ref<number> = ref(4);
+  const pageCountPerPage: Ref<number> = ref(10);
   const currentPage: Ref<number> = ref(1);
   watch(
     data,
@@ -18,6 +18,9 @@ export function usePagination(data: Ref<IProducts[]>) {
   const pageCount = computed(() => {
     return Math.ceil(paginationData.value.length / pageCountPerPage.value);
   });
+  const setCountPerPage=(val:number)=>{
+    pageCountPerPage.value=val;
+  }
   const nextPage = () => {
     if (
       currentPage.value * pageCountPerPage.value <
@@ -48,5 +51,6 @@ export function usePagination(data: Ref<IProducts[]>) {
     pageCountPerPage,
     currentPage,
     filteredList,
+    setCountPerPage
   };
 }

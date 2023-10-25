@@ -77,8 +77,8 @@
         <MagnifyingGlassIcon />
       </VInput>
     </div>
-    <div class="home-content">
-      <v-data-table :items="sortedProducts">
+    <div class="home-content mt-24">
+      <v-data-table :item-per-page="3" :items="sortedProducts">
         <v-data-column field="image_url" header="Фото" :image="true" />
         <v-data-column field="name" header="Название" />
         <v-data-column field="views" header="Просмотры" />

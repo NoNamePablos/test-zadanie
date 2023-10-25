@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <th class="table-header-cell">
+  <th class="table-head-cell">
     <div class="flex items-center">
       <span>
         {{ header }}
@@ -17,7 +17,7 @@
   </th>
 </template>
 <style lang="scss" scoped>
-  .table-header-cell {
-    @apply text-left border border font-bold text-gray-500  transition-shadow duration-[0.2s] p-4 border-solid border-[0_0_1px_0] bg-[#f9fafb];
+  .table-head-cell {
+    @apply text-left border border font-bold text-gray-500  transition-shadow duration-[0.2s] px-16 py-8 border-solid border-[0_0_1px_0] bg-[#f9fafb];
   }
 </style>
