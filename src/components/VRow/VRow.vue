@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <div class="row">
@@ -8,7 +6,7 @@
   </div>
 </template>
 <style lang="scss" scoped>
-  .row{
+  .row {
     @apply flex flex-col tablet:flex-row;
   }
 </style>

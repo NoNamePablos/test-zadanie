@@ -15,9 +15,7 @@
       <template #default>
         <RouterView />
       </template>
-      <template #fallback>
-        Loading...
-      </template>
+      <template #fallback> Loading... </template>
     </Suspense>
   </VDefaultLayout>
 </template>

@@ -13,4 +13,3 @@ describe('VPriceItem', () => {
 
   test.todo('Example', () => {});
 });
-
