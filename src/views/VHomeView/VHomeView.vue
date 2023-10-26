@@ -5,7 +5,7 @@
   import VInput from '@/components/VInput/VInput.vue';
   import { VSortButton } from '@/components/VSortButton';
   import { useToast } from "primevue/usetoast";
-  import { computed, ref, watch } from 'vue';
+  import {computed, onMounted, ref, watch} from 'vue';
   import type { Ref } from 'vue';
 
   import type IProducts from '@/types/products';
@@ -40,10 +40,21 @@
     },
   ]);
   const { currentSort, currentSortDir, sorting } = useSort();
-  currentSort.value = sortButtonList.value[0].sortName;
+
 
   const products: Ref<IProducts[]> = ref([]);
-
+  onMounted(()=>{
+    if(localStorage.getItem("currentSort")){
+      console.log(localStorage.getItem("currentSort"))
+      currentSort.value=JSON.parse(localStorage.getItem("currentSort"))
+    }else{
+      currentSort.value = sortButtonList.value[0].sortName;
+    }
+    if(localStorage.getItem("currentSortDir")){
+      console.log(localStorage.getItem("currentSortDir"))
+      currentSortDir.value=JSON.parse(localStorage.getItem("currentSortDir")) as keyof typeof ESortDir;
+    }
+  })
   watch(data, (newData) => {
     products.value = newData;
     toast.add({ severity: 'info', summary: 'Загрузка данных', detail: 'Данные были успешно загружены', life: 3000 });
@@ -51,6 +62,7 @@
   watch(searchedList, (newData) => {
     products.value = newData;
   });
+
   const sortedProducts = computed(() => {
     return [...products.value].sort((a, b) => {
       let modifier = 1;
