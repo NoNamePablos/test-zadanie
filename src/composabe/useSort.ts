@@ -1,9 +1,9 @@
 import {ref, watch} from 'vue';
-import { ESortDir } from '@/types/sorttypes';
+import {ESortDir} from '@/types/sorttypes';
 
 export function useSort() {
   const currentSort = ref('');
-  const currentSortDir = ref<ESortDir>(null);
+  const currentSortDir = ref<ESortDir>(ESortDir.NONE);
   watch(currentSort,(val)=>{
     localStorage.setItem("currentSort",JSON.stringify(val));
   })
