@@ -29,7 +29,7 @@
     :class="{
       error: error,
     }">
-    <div v-if="leftIcon" class="input-icon">
+    <div v-if="leftIcon" data-testid="left" class="input-icon">
       <slot></slot>
     </div>
     <input
@@ -39,10 +39,10 @@
       data-testid="input"
       :value="modelValue"
       @input="handleInput" />
-    <div v-if="rightIcon" class="input-icon">
+    <div v-if="rightIcon" data-testid="right" class="input-icon">
       <slot></slot>
     </div>
-    <div class="absolute -bottom-24 left-0 text-red-600" v-if="error">
+    <div class="absolute -bottom-24 left-0 text-red-600" data-testid="error" v-if="error">
       {{ errorMessage }}
     </div>
   </div>

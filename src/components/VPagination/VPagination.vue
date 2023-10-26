@@ -20,6 +20,7 @@
     <v-button
       intent="secondary"
       v-for="i in pageCount"
+      data-testid="buttons"
       :key="i"
       class="flex gap-8"
       :class="{ 'is-active': i == currentPage }"
