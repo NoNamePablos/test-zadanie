@@ -1,17 +1,9 @@
 <script lang="ts" setup>
-  import { useI18n } from 'vue-i18n';
-
-  export interface VSortListProps {
+  interface VSortListProps {
     title?: string;
   }
-
   withDefaults(defineProps<VSortListProps>(), {
     title: 'Сортировать:',
-  });
-
-  const { t } = useI18n({
-    locale: 'en',
-    messages: {},
   });
 </script>
 

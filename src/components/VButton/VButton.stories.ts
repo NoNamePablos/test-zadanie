@@ -1,12 +1,14 @@
 import type { Meta, StoryFn } from '@storybook/vue3';
 import { VButton } from '@/components/VButton';
+import { ChevronLeftIcon } from '@heroicons/vue/20/solid';
 
 export default {
   title: 'Forms/VButton',
   component: VButton,
+  tags: ['autodocs'],
 } as Meta;
 
-const Template: StoryFn = (args) => ({
+export const Template: StoryFn = (args) => ({
   components: { VButton },
   setup() {
     return { args };
@@ -16,16 +18,37 @@ const Template: StoryFn = (args) => ({
 
 export const Default = {
   render: Template,
-
+  argTypes: {
+    intent: {
+      options: ['primary', 'secondary', 'danger', 'text'],
+      control: { type: 'radio' },
+    },
+  },
   args: {
-    appearance: 'button',
+    intent: 'primary',
   },
 };
-
-export const Link = {
+export const LeftIcon = {
   render: Template,
-
+  argTypes: {
+    intent: {
+      options: ['primary', 'secondary', 'danger', 'text'],
+      control: { type: 'radio' },
+    },
+  },
   args: {
-    appearance: 'link',
+    leftIcon: ChevronLeftIcon,
+  },
+};
+export const RightIcon = {
+  render: Template,
+  argTypes: {
+    intent: {
+      options: ['primary', 'secondary', 'danger', 'text'],
+      control: { type: 'radio' },
+    },
+  },
+  args: {
+    rightIcon: ChevronLeftIcon,
   },
 };

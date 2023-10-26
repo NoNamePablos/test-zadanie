@@ -1,22 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import { VRating } from '.';
+import type { Meta, StoryFn, StoryObj } from '@storybook/vue3';
+import VRating from '@/components/VRating/VRating.vue';
 
-const meta = {
-  title: 'VRating',
+export default {
+  title: 'Rating/VRating',
   component: VRating,
-  render: (args: any) => ({
-    components: { VRating },
-    setup() {
-      return { args };
-    },
-    template: '<VRating v-bind="args" />',
-  }),
   tags: ['autodocs'],
-} satisfies Meta<typeof VRating>;
+} as Meta;
+const Template: StoryFn = (args) => ({
+  components: { VRating },
+  setup() {
+    return { args };
+  },
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  args: {},
+  template: '<VRating  v-bind="args"></VRating>',
+});
+export const Default = {
+  render: Template,
+  args: {
+    countStars: 3,
+    totalStars: 10,
+  },
 };

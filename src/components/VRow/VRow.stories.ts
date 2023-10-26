@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { VRow } from '.';
+import { VRow } from '@/components/VRow/VRow.vue';
 
 const meta = {
-  title: 'VRow',
+  title: 'utils/VRow',
   component: VRow,
   render: (args: any) => ({
     components: { VRow },

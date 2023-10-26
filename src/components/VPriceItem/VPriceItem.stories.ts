@@ -1,22 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import { VPriceItem } from '.';
+import type { Meta, StoryFn, StoryObj } from '@storybook/vue3';
+import VPriceItem from '@/components/VPriceItem/VPriceItem.vue';
 
-const meta = {
-  title: 'VPriceItem',
+export default {
+  title: 'Other/VPriceItem',
   component: VPriceItem,
-  render: (args: any) => ({
-    components: { VPriceItem },
-    setup() {
-      return { args };
-    },
-    template: '<VPriceItem v-bind="args" />',
-  }),
   tags: ['autodocs'],
-} satisfies Meta<typeof VPriceItem>;
+} as Meta;
+const Template: StoryFn = (args) => ({
+  components: { VPriceItem },
+  setup() {
+    return { args };
+  },
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  args: {},
+  template: '<VPriceItem  v-bind="args"></VPriceItem>',
+});
+export const Default = {
+  render: Template,
+  args: {
+    price: 250,
+    label: 'Старая цена',
+  },
 };

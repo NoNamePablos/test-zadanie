@@ -1,22 +1,10 @@
 <script lang="ts" setup>
-  import { useI18n } from 'vue-i18n';
-  export type AllowedTags =
-    | 'text'
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'search'
-    | 'tel'
-    | 'url'
-    | 'week';
-
+  import type { AllowedTags } from '@/components/VInput/VInput.types';
   export interface Props {
     label?: string;
     tip?: string;
     error?: boolean | string;
+    errorMessage?: string | undefined;
     modelValue: string;
     type?: AllowedTags;
     rightIcon?: boolean;
@@ -33,35 +21,38 @@
     const value = (e.target as HTMLInputElement).value;
     emit('update:modelValue', value);
   };
-  /*const {t} = useI18n({
-  locale: 'en',
-  messages: {},
-});*/
 </script>
 
 <template>
-  <div class="input">
+  <div
+    class="input"
+    :class="{
+      error: error,
+    }">
     <div v-if="leftIcon" class="input-icon">
       <slot></slot>
     </div>
     <input
       :type="type"
-      v-bind="$attrs"
+      :placeholder="label"
       class="leading-1.5 block h-module mr-4 outline-none border-none p-module text-black placeholder:text-gray-700"
-      :class="{
-        'border-red': error,
-      }"
       data-testid="input"
       :value="modelValue"
       @input="handleInput" />
     <div v-if="rightIcon" class="input-icon">
       <slot></slot>
     </div>
+    <div class="absolute -bottom-24 left-0 text-red-600" v-if="error">
+      {{ errorMessage }}
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
   .input {
-    @apply flex gap-4 h-32 rounded w-max border border-gray-700  px-8;
+    @apply flex gap-4 h-32 rounded w-max border border-gray-700  px-8 relative;
+    &.error {
+      @apply border-red-600;
+    }
   }
   .input-icon {
     @apply text-gray-700 w-16 items-center flex;

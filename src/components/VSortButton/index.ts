@@ -1,3 +1,3 @@
-import VSortButton, { type VSortButtonProps } from './VSortButton.vue';
+import VSortButton from './VSortButton.vue';
 
-export { VSortButton, type VSortButtonProps };
+export { VSortButton };

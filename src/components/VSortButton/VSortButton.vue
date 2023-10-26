@@ -2,18 +2,15 @@
   import { useI18n } from 'vue-i18n';
   import { ArrowSmallUpIcon } from '@heroicons/vue/20/solid';
   import { ArrowSmallDownIcon } from '@heroicons/vue/20/solid';
-  enum StateSort {
-    ASC = 1,
-    DESC,
-    NONE,
-  }
+  import { ESortDir } from '@/types/sorttypes';
+
   interface VSortButtonProps {
-    sortState: StateSort | undefined;
-    label: string;
+    sortState?: ESortDir;
+    label?: string;
   }
 
   withDefaults(defineProps<VSortButtonProps>(), {
-    sortState: StateSort.NONE,
+    sortState: ESortDir.NONE,
   });
 
   const { t } = useI18n({
@@ -27,10 +24,10 @@
     <div class="sort-button__label">
       {{ label }}
     </div>
-    <div class="sort-button__ico" v-if="sortState === StateSort.ASC">
+    <div class="sort-button__ico" v-if="sortState === ESortDir.ASC">
       <ArrowSmallUpIcon />
     </div>
-    <div class="sort-button__ico" v-if="sortState === StateSort.DESC">
+    <div class="sort-button__ico" v-if="sortState === ESortDir.DESC">
       <ArrowSmallDownIcon />
     </div>
   </div>

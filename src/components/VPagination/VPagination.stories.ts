@@ -1,22 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import { VPagination } from '.';
+import type { Meta, StoryFn, StoryObj } from '@storybook/vue3';
+import VPagination from '@/components/VPagination/VPagination.vue';
 
-const meta = {
-  title: 'VPagination',
+export default {
+  title: 'Pagination/VPagination',
   component: VPagination,
-  render: (args: any) => ({
-    components: { VPagination },
-    setup() {
-      return { args };
-    },
-    template: '<VPagination v-bind="args" />',
-  }),
   tags: ['autodocs'],
-} satisfies Meta<typeof VPagination>;
+} as Meta;
+const Template: StoryFn = (args) => ({
+  components: { VPagination },
+  setup() {
+    return { args };
+  },
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  args: {},
+  template: '<VPagination  v-bind="args"></VPagination>',
+});
+export const Default = {
+  render: Template,
+  args: {
+    pageCount: 5,
+    currentPage: 1,
+  },
 };

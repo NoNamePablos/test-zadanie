@@ -3,9 +3,9 @@
   import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/vue/20/solid';
 
   interface Props {
-    changePage: Function;
-    prevPage: Function;
-    nextPage: Function;
+    changePage?: Function;
+    prevPage?: Function;
+    nextPage?: Function;
     pageCount: number;
     currentPage?: number;
   }

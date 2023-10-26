@@ -1,3 +1,3 @@
-import VHomeView, { type VHomeViewProps } from './VHomeView.vue';
+import VHomeView from './VHomeView.vue';
 
-export { VHomeView, type VHomeViewProps };
+export { VHomeView };

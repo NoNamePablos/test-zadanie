@@ -1,22 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import { VDataColumn } from '.';
+import type { Meta, StoryFn, StoryObj } from '@storybook/vue3';
+import VDataColumn from '@/components/VDataColumn/VDataColumn.vue';
 
-const meta = {
-  title: 'VDataColumn',
+export default {
+  title: 'Table/VDataColumn',
   component: VDataColumn,
-  render: (args: any) => ({
-    components: { VDataColumn },
-    setup() {
-      return { args };
-    },
-    template: '<VDataColumn v-bind="args" />',
-  }),
   tags: ['autodocs'],
-} satisfies Meta<typeof VDataColumn>;
+} as Meta;
+const Template: StoryFn = (args) => ({
+  components: { VDataColumn },
+  setup() {
+    return { args };
+  },
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  args: {},
+  template: '<VDataColumn  v-bind="args"></VDataColumn>',
+});
+export const Default = {
+  render: Template,
+  args: {
+    header: 'sort_value',
+    field: 'sort_name',
+  },
 };

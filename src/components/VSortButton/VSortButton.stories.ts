@@ -1,22 +1,38 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import { VSortButton } from '.';
-
-const meta = {
-  title: 'VSortButton',
+import type { Meta, StoryFn, StoryObj } from '@storybook/vue3';
+import VSortButton from '@/components/VSortButton/VSortButton.vue';
+import { ESortDir } from '@/types/sorttypes';
+export default {
+  title: 'sort/VSortButton',
   component: VSortButton,
-  render: (args: any) => ({
-    components: { VSortButton },
-    setup() {
-      return { args };
-    },
-    template: '<VSortButton v-bind="args" />',
-  }),
   tags: ['autodocs'],
-} satisfies Meta<typeof VSortButton>;
+} as Meta;
+const Template: StoryFn = (args) => ({
+  components: { VSortButton },
+  setup() {
+    return { args };
+  },
+  template: '<VSortButton  v-bind="args"></VSortButton>',
+});
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  args: {},
+export const Default = {
+  render: Template,
+  args: {
+    label: 'sort title ',
+    sortState: ESortDir.ASC,
+  },
 };
+
+function enumOptions(someEnum) {
+  return {
+    options: Object.keys(someEnum)
+      .filter((key) => !isNaN(parseInt(key)))
+      .map((key) => parseInt(key)),
+    mapping: someEnum,
+    control: {
+      type: 'select',
+      labels: Object.values(someEnum).filter(
+        (value) => typeof value === 'string',
+      ),
+    },
+  };
+}

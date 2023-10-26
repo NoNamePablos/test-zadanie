@@ -1,22 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import { VSortList } from '.';
+import type { Meta, StoryFn, StoryObj } from '@storybook/vue3';
+import VSortList from '@/components/VSortList/VSortList.vue';
 
-const meta = {
-  title: 'VSortList',
+export default {
+  title: 'sort/VSortList',
   component: VSortList,
-  render: (args: any) => ({
-    components: { VSortList },
-    setup() {
-      return { args };
-    },
-    template: '<VSortList v-bind="args" />',
-  }),
   tags: ['autodocs'],
-} satisfies Meta<typeof VSortList>;
+} as Meta;
+const Template: StoryFn = (args) => ({
+  components: { VSortList },
+  setup() {
+    return { args };
+  },
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  args: {},
+  template: '<VSortList  v-bind="args"></VSortList>',
+});
+export const Default = {
+  render: Template,
+  args: {
+    title: 'Basic text ',
+  },
 };
