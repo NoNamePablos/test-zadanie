@@ -23,11 +23,11 @@
 </script>
 
 <template>
-  <div class="sort-button">
+  <div class="sort-button " >
     <div class="sort-button__label">
       {{ label }}
     </div>
-    <div class="sort-button__ico" v-if="sortState === StateSort.ASC">
+    <div class="sort-button__ico  "  v-if="sortState === StateSort.ASC">
       <ArrowSmallUpIcon />
     </div>
     <div class="sort-button__ico" v-if="sortState === StateSort.DESC">
@@ -37,9 +37,12 @@
 </template>
 <style lang="scss" scoped>
   .sort-button {
-    @apply flex gap-8 items-center;
-  }
-  .sort-button__ico {
-    @apply w-24 h-24 text-black;
+    @apply flex gap-8 items-center relative pr-16;
+    &__label{
+      @apply font-medium text-gray-700;
+    }
+    &__ico{
+      @apply w-24 h-24 text-gray-700 absolute -right-8;
+    }
   }
 </style>

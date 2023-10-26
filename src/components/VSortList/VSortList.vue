@@ -17,20 +17,20 @@
 
 <template>
   <div class="sort">
-    <div class="sort-title">{{ title }}</div>
-    <div class="sort-list">
+    <div class="sort__title">{{ title }}</div>
+    <div class="sort__list">
       <slot></slot>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
   .sort {
-    @apply flex;
+    @apply flex flex-col items-center tablet:flex-row;
   }
-  .sort-title {
-    @apply mr-8;
+  .sort__title {
+    @apply mr-8 text-lg font-medium;
   }
-  .sort-list {
-    @apply flex gap-8;
+  .sort__list {
+    @apply flex flex-col gap-8 tablet:flex-row;
   }
 </style>

@@ -4,13 +4,13 @@
 
 <template>
   <div class="wrapper">
-    <div class="header">
+<!--    <div class="header">
       <v-container-row>
         <router-link to="/" class="header__logo">
           <img src="/logo.svg" alt="logo" />
         </router-link>
       </v-container-row>
-    </div>
+    </div>-->
     <VContainerRow class="mt-64" :centered="true">
       <slot />
     </VContainerRow>

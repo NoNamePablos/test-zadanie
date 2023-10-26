@@ -14,7 +14,7 @@ import VPriceItem from "@/components/VPriceItem/VPriceItem.vue";
 const route = useRoute();
 const router = useRouter();
 const productID: Ref<number> = ref(-1);
-const {isFetching, error, data} = useProducts();
+const {isFetching, error, data} = await useProducts();
 const page: Ref<IProducts | undefined> = ref({});
 
 watch(data, (newData) => {
@@ -48,7 +48,8 @@ onMounted(() => {
         <div
             class="detail-main__content">
           <div class="detail-preview">
-            <img :src="page?.image_url" alt="" class="w-full h-full max-w-full object-contain "/>
+            <img :src="page?.image_url" alt="" v-if="page?.image_url" class="w-full h-full max-w-full object-contain "/>
+            <img src="/not-found.png" v-else class="w-full h-full max-w-full object-contain " alt="">
           </div>
           <div class="detail-content ">
             <div
